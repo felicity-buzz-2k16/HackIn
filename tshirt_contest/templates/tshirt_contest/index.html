@@ -1,0 +1,65 @@
+{% extends "tshirt_contest/base.html" %}
+{% block main %}
+<div class="banner">
+	<div class="container">
+		
+	</div>
+</div>
+<div class="work">
+    <div class="container">
+		<div class="work-top">
+			<h3>Design posted till now</h3>
+		</div>
+			<div class="work-bottom">
+					<div class="row">
+				{% for item, liked in designs %}
+					<div class="col-md-3 portfolio-wrapper">		
+						<a href="{{ item.design.url }}" class="b-link-stripe b-animate-go  swipebox"  title="{{ item.user.username }}">
+
+							<img src="{{ item.design.url }}" alt="" height=400/>
+							<div class="b-wrapper">
+								<div class="b-animate b-from-left b-delay03">
+									<img src="/static/images/link.png" alt=""/>
+								</div>
+							</div>
+						</a>
+
+			            
+			            	<div class="work-details" style="text-align:center;">
+								<h3>{{ item.title }}</h3>
+								<p id="designvotes{{ item.id }}">{{ item.poll_set.count }} <i class="fa fa-thumbs-up"></i></p>
+								{% if user.username %}	
+									{% if liked %}
+										<p class="designcanceljquery" id="designcancel{{item.id}}" data-catid="{{item.id}}" style="text-decoration:none;">Cancel your Vote</p>
+									{% else %}
+										<p class="designjquery" id="design{{item.id}}" data-catid="{{item.id}}" style="text-decoration:none;">Click to Vote</p>
+									{% endif %}
+								{% else %}
+									<p>Login  to vote</p>
+								{% endif %}
+							</div>
+						
+					</div>
+
+					{% if forloop.counter|divisibleby:4 == True %}
+						</div>
+						<br>
+						<div class="row">
+					{% endif %}
+				{% endfor %}
+				</div>		
+				<div class="clearfix"> </div>
+			</div>
+
+	</div>
+</div>
+	
+	<script src="/static/js/jquery.swipebox.min.js"></script> 
+	    <script type="text/javascript">
+			jQuery(function($) {
+				$(".swipebox").swipebox();
+			});
+</script>
+{% endblock %}
+
+

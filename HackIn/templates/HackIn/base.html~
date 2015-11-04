@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="{% static 'HackIn/css/base.css' %}" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ </head>
+ <body>
+  <h1>HacK IN</h1>
+</html>
+
+  

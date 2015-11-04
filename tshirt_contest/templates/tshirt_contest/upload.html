@@ -1,0 +1,7 @@
+{% extends "tshirt_contest/base.html" %}
+{% block main %}
+	<form action="/tshirt-contest/upload/" method="post" enctype="multipart/form-data">{% csrf_token %}
+		{{ form.as_p }}<br>
+		<input type="submit" value="Submit">
+	</form>
+{% endblock %}
