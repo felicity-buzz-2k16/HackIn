@@ -5,4 +5,4 @@ How to Setup:-
 *change buzz2k15/settings.py database settings with your database username and password
 *add a new database table in MySql named "BUZZ"
 *run python manage.py runserver
-*starting Hacking
+*start Hacking
