@@ -1,0 +1,11 @@
+<form action="/buzz/hackin/ques6/" method="post" > {%csrf_token%} 
+ <input type="text" name="ans" id="ques6"/>
+ <input type="submit" value="Submit" />
+</form>
+
+
+<p id="password">
+</p>
+
+<script>
+</script>

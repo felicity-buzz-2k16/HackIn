@@ -1,0 +1,391 @@
+from django.shortcuts import render
+from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.contrib import auth
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.core.context_processors import csrf
+from django.contrib import messages
+from django.template import RequestContext, loader
+from django.views.decorators.csrf import csrf_exempt
+import os
+import commands
+import json
+from hackin.models import *
+import collections
+
+
+def leaderboard(request):
+    participant = Profile.objects.all().order_by('-level')
+    c = {}
+    c.update(csrf(request))
+    d = {}
+    for par in participant:
+        d[int(par.level)*10] = str(par)
+    c['part'] = participant
+    return render_to_response('hackin/leaderboard.html', c)
+
+@login_required
+def index(request):
+    return render_to_response('hackin/indexfinal.html')
+
+
+@login_required
+def levels(request):
+    return render_to_response('hackin/levels.html')
+
+@login_required
+def getstarted(request):
+    if request.user.username:
+        check = 0
+        getstarted = Profile.objects.filter(user=request.user.id)
+        if len(getstarted) == 0:
+            check = 0
+        else:
+            check = 1
+        if check == 0:
+            profile=Profile(user=request.user,level=1, tries = 0)
+            profile.save()
+            return render_to_response('hackin/getting_started.html')
+        else:
+            return render_to_response('hackin/getting_started.html')
+
+@login_required()
+def ques1(request):                # Answer is here
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 1:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            c['is_wrong_answer'] = 0
+            return render_to_response('hackin/ques1.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "here":
+                if person.level <= 1:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques2')
+            else:
+                c = {}
+                c.update(csrf(request))
+                c['is_wrong_answer'] = 1
+                messages.error(request, 'Wrong Answer')
+                print messages
+                return render_to_response('hackin/ques1.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+        
+@login_required()
+def ques2(request):                        #ans in comment
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 2:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques2.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "gotonextlevel":
+                if person.level <= 2:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques3')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques2.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+        
+@login_required() 
+def ques3(request):                       # Infinite Tar
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 3:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques3.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "879d69679ee623de3e459b170c11a1c7":
+                if person.level <= 3:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques4')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques3.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+
+@login_required()
+def ques4(request):
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 4:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques4.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "nextlevelunlocked":
+                if person.level <= 4:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques5')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques4.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+
+@login_required()
+def ques5(request):
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 5:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques5.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "MORSEISAMAZING":
+                if person.level <= 5:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques6')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques5.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+
+@login_required()
+def ques6(request):
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 6:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques6.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "lkaDDsjdfP0lk":
+                if person.level <= 6:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques7')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques6.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+
+@csrf_exempt
+@login_required()
+def ques7(request):
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    print person
+    if int(person.level) >= 7:
+        if request.method == "GET":
+            context = {}
+            context.update(csrf(request))
+            requestContext = RequestContext(request, context)
+            templateIndex = loader.get_template('hackin/ques7.html')
+            renderedTemplate = templateIndex.render(requestContext)
+            try:
+                print "got cooke"
+                CC = request.COOKIES['passwd_cook']
+                print CC
+                if int(CC) == 1:
+                    print "1",person.level
+                    if person.level <= 7:
+                        person.level += 1
+                        person.save()
+                        print "2",person.level
+                    return HttpResponseRedirect('/buzz/hackin/ques8')
+                else:
+                    c = {}
+                    c.update(csrf(request))
+                    return render_to_response('hackin/ques7.html',c)
+            except:
+                print "didinet got cook"
+                response = HttpResponse()
+                response.set_cookie('passwd_cook', '0')
+                response.write(renderedTemplate)
+                return response
+        else:
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques7.html',c)
+    else:  
+        return HttpResponseRedirect('hackin/levels')
+
+@login_required
+def ques8(request):
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 8:
+        if request.method == "GET":
+            CC = person.tries
+            if int(CC) < 1000:
+                if person.level <= 8:
+                    person.tries += 1
+                    person.save()
+                else:
+                    pass
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques8.html',c)
+            else:
+                if person.level == 8:
+                    person.level += 1
+                    person.save()
+                return HttpResponseRedirect('/buzz/hackin/ques9')
+        else:
+            return render_to_response('/buzz/hackin/ques8')
+    else:
+        return HttpResponseRedirect('hackin/levels')
+
+@login_required
+def ques9(request):                          # Check With Pinkesh
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 9:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques9.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "kjaliuKdhJdsab23hjK9231JJJ":
+                if person.level <= 9:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques10')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques9.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+
+@login_required
+def ques10(request):                          # Check With Pinkesh
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 10:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques10.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "ksowpjsdlsa":
+                if person.level <= 10:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques11')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques10.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+
+@login_required
+def ques11(request):                          # Check With Pinkesh
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 11:
+        if request.method == "GET":
+            c = {}
+            c.update(csrf(request))
+            return render_to_response('hackin/ques11.html',c)
+        else:
+            ans = request.POST.get('ans','')
+            if ans == "lyeskpuaitsaamhak":
+                if person.level <= 11:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques11')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques11.html',c)
+    else:
+        return HttpResponseRedirect('hackin/levels')
+
+
+# ############################## API FOR SENDING Password #######################################################
+
+def sendpassword(request):
+    return HttpResponse("lkaDDsjdfP0lk")
+    
+def accessdenied(request):
+    return HttpResponse("Toh se na ho payee babuaa")
+
+# ###############################################################################################################
+
+@login_required
+def ques12(request):
+    user_previous_level = request.user.user_id.level
+    person = Profile.objects.get(user_id=request.user.id)
+    if int(person.level) >= 12:
+        if request.method == "GET":
+            c = {}
+            print "got get"
+            c.update(csrf(request))
+            return render_to_response('hackin/ques12.html',c)
+        else:
+            ans = request.POST.get('ans10','')
+            status, output = commands.getstatusoutput("echo nomore | sudo -S su -  ani -c \"%s\"" % ("echo " + ans))
+            if status == 0:
+                if person.level <= 11:
+                    person.level += 1
+                    person.save()
+                else:
+                    pass
+                return HttpResponseRedirect('/buzz/hackin/ques13')
+            else:
+                c = {}
+                c.update(csrf(request))
+                return render_to_response('hackin/ques12.html',c)
+    else:
+        return render_to_response('hackin/ques12.html')
+
+
+
+
+

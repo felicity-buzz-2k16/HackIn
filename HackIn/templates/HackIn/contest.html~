@@ -1,4 +1,0 @@
-{% load staticfiles %}
-{% extends "base.html" %}
-
-<h2>Explore the whole website to get the Flag !</h2>

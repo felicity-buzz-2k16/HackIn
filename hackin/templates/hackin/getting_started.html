@@ -1,0 +1,98 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>HackIn </title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+<style>
+
+
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Lato Regular'), local('Lato-Regular'), url(http://fonts.gstatic.com/s/lato/v11/1YwB1sO8YE1Lyjf12WNiUA.woff2) format('woff2');
+}
+
+@font-face {
+	font-family: myFirstFont;
+	src: url("{% static 'hackin/fonts/sansation_light.woff' %}");
+}
+
+@font-face {
+	font-family: hacked;
+	src: url("{% static 'hackin/fonts/hacked.ttf' %}");
+}
+
+
+div {
+	font-family: myFirstFont;
+
+}
+
+
+body {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	background-image: url("{% static 'hackin/images/header3.jpg' %}") ; /*url(/buzz/hackin/hackin/static/images/header3.jpg);*/
+	background-repeat:no-repeat;
+	background-size: 100%;
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #333;
+	text-align:center;
+	padding:0px;
+	margin:0px;
+}
+
+#nav_main {
+	background: #d54515 url("{% static 'hackin/images/slider-gradient-bg.png' %}") repeat-y 50% 0;
+	-moz-box-shadow: inset 0 0 3px #000000;
+	-webkit-box-shadow: inset 0 0 3px #000000;
+	box-shadow: inset 0 0 3px #000000;
+	color:white;
+	font-size: 25px;
+	text-align:center;
+	font-weight:bold;
+	margin-bottom:0px;
+	bottom:0px;
+
+}
+
+#heading { 
+	font-family: hacked;
+	font-size:100px;
+	text-shadow: 1px 1px 35px black;
+	color:white;
+}
+
+</style>
+</head>
+
+<body>
+<div style="margin:200px;">
+	<p id="heading">
+	<i style="font-size:80px;" class="fa fa-circle-o-notch fa-pulse"></i>
+	Hack-In </p>
+	<button type="button" class="btn btn-default" onclick='gotolevelspage("/buzz/hackin/levels")'>
+		<p style="font-weight:bold">Get Started</p>
+	</button>
+</div>
+<script>
+function gotolevelspage(url){
+	window.open(url, "_self");
+}
+</script>
+</body>
+</html>

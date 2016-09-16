@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Felicity Buzz | login</title>
+<link rel="stylesheet" href="/buzz/hackin/static/authentication/css/animation1.css" type="text/css" media="all">
+
+</head>
+<body>
+
+
+<h1>Login</h1>
+<form action="/buzz/hackin/accounts/login/" method="post" >{% csrf_token %}
+		<input type="text" placeholder="User name" name="username" id="username"/>
+		<input type="password" placeholder="Password" name="password" id="password"/>
+		<input type="text" style="display:none" name="place_to_go" value="{{ place_to_go }}">
+	 	<input type="submit" value="Log in" />
+	</form>
+		<h4><a href="/buzz/hackin/accounts/register/">Register Now!</a></h4>
+		<script src="/buzz/hackin/static/authentication/js/animation1.js"></script>
+
+<!--login end here-->
+</body>
+</html>

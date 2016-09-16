@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Felicity Buzz | register</title>
+		<link rel="stylesheet" href="/buzz/hackin/static/authentication/css/animation1.css" type="text/css" media="all">
+	</head>
+	<body>
+		<form action="/buzz/hackin/accounts/register/"  method="post">{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Register" />
+		</form>
+		<script src="/buzz/hackin/static/authentication/js/animation1.js"></script>
+	</body>
+</html>

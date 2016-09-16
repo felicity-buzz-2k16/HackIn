@@ -2,23 +2,23 @@
 <html>
 <head>
 <title>Felicity Buzz | login</title>
-<link rel="stylesheet" href="/buzz/portal/static/authentication/css/animation1.css" type="text/css" media="all">
+<link rel="stylesheet" href="/buzz/hackin/static/authentication/css/animation1.css" type="text/css" media="all">
 
 </head>
 <body>
 
 <h1>Login</h1>
 	<p class="invalid">Username or Password invalid.Try again</p>
-	<form action="/buzz/portal/accounts/login/" method="post">{% csrf_token %}
+	<form action="/buzz/hackin/accounts/login/" method="post">{% csrf_token %}
 		<input type="text" placeholder="User name" name="username" id="username"/>
 		<input type="password" placeholder="Password" name="password" id="password"/>
 		<p><a href="{% url "password_reset_recover" %}"> Forgot Password? </a></p>
 
 	 	 <input type="submit" value="Log in" />
 
-		<h4><a href="/buzz/portal/accounts/register/">Register Now!</a></h4>
+		<h4><a href="/buzz/hackin/accounts/register/">Register Now!</a></h4>
 
-<script src="/buzz/portal/static/authentication/js/animation1.js"></script>
+<script src="/buzz/hackin/static/authentication/js/animation1.js"></script>
 <!--login end here-->
 </body>
 </html>

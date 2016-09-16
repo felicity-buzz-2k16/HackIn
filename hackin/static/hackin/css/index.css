@@ -1,0 +1,8 @@
+body {
+    background-image: url("../images/Background.png");
+    Background-repeat: no-repeat;
+}
+
+#p1 {
+    color: red;
+}
